@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired 
+	private RedisTemplate<String, Object> redisTemplate;
 
 	@Autowired
 	private ModelMapper mapper;
@@ -83,7 +87,12 @@ public class UserServiceImpl implements UserService {
 
 			if (EncryptUtil.isPassword(loginDto, user)) {
 				if (user.isVerified()) {
-					return tokenGenerator.generateToken(user.getUserId());
+					String token=tokenGenerator.generateToken(user.getUserId());
+					redisTemplate.opsForHash().put("fundooNotes1", user.getEmail(), token);
+					
+					String token1=(String) redisTemplate.opsForHash().get("fundooNotes1", user.getEmail());
+					System.out.println(token1);
+					return token;
 				} else {
 					throw new UserException("please verify your email");
 				}
