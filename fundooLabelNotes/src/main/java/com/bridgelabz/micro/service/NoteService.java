@@ -3,6 +3,8 @@ package com.bridgelabz.micro.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.bridgelabz.micro.Dto.NoteDto;
 import com.bridgelabz.micro.model.Label;
 import com.bridgelabz.micro.model.Note;
@@ -43,4 +45,6 @@ public interface NoteService {
 	List<Note> getAllUserNote();
 	List<Label> getLabelOfNotes(String noteId,String token);
 	String setColor(String token,String noteId,String colorCode);
+	
+	Page<Note> pegination(String token,int first,int last);
 }

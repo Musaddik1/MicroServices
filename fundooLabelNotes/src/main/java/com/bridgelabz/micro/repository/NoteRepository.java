@@ -1,6 +1,9 @@
 package com.bridgelabz.micro.repository;
 
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 
 import com.bridgelabz.micro.model.Note;
 
@@ -21,6 +24,7 @@ public interface NoteRepository extends MongoRepository<Note, String> {
 	List<Note> findByUserIdAndIsTrash(String userId,boolean boolean1);
 	List<Note> findByOrderByTitleAsc();
 	List<Note> findByOrderByTitleDesc();
+	
 
 	
 

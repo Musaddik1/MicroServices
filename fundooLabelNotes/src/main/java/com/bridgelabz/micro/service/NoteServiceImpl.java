@@ -8,6 +8,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.micro.Dto.NoteDto;
@@ -18,6 +24,7 @@ import com.bridgelabz.micro.model.Note;
 import com.bridgelabz.micro.repository.NoteRepository;
 import com.bridgelabz.micro.response.Response;
 import com.bridgelabz.micro.utility.JWTTokenGenerator;
+import com.google.common.collect.Lists;
 
 
 @Service
@@ -381,5 +388,20 @@ public class NoteServiceImpl implements NoteService {
 		/*
 		 * }else { throw new UserException("user not present"); }
 		 */
+	}
+
+	@Override
+	public Page<Note> pegination(String token, int numberOfPages, int numberOfRecords) {
+		System.out.println("?dsjdas;lj");
+		 new PageRequest(numberOfPages,numberOfRecords);
+		 
+		@SuppressWarnings("deprecation")
+		Pageable pageable = PageRequest.of(numberOfPages, numberOfRecords);
+		System.out.println(pageable.getPageNumber());
+		    Page<Note> page = noteRepository.findAll(pageable);
+		     Lists.newArrayList(page);
+		     System.out.println(Lists.newArrayList(page));
+		    return page;
+		//return null;
 	}
 }

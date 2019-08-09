@@ -1,13 +1,13 @@
-package com.bridgelabz.micro;
+package com.bridgelabz.interceptor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FundooLabelNotesApplication {
+public class InterceptorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FundooLabelNotesApplication.class, args);
+		SpringApplication.run(InterceptorApplication.class, args);
 	}
 
 }
